@@ -1,6 +1,6 @@
-# Opencode-Litellm-demo
+# OpenCode + LiteLLM + OpenRouter Demo
 
-A demo repository showing [OpenCode](https://opencode.ai) + [LiteLLM](https://docs.litellm.ai) running together in a dev container. Users get OpenCode pre-configured to proxy all major LLM providers through LiteLLM — with just a `.env` file.
+A demo repository showing [OpenCode](https://opencode.ai) running in a dev container with two provider options: [LiteLLM](https://docs.litellm.ai) as a proxy for all major LLM providers, and [OpenRouter](https://openrouter.ai) as a native direct provider with free models — all configured with just a `.env` file.
 
 ## Demo Video
 
@@ -47,6 +47,14 @@ GROQ_API_KEY=gsk_...
 
 Get one free at [console.groq.com](https://console.groq.com). Without a key, OpenCode falls back to Ollama — which works but is slow (~60–100s per response on CPU-only hardware).
 
+**Alternative: Use OpenRouter free models** — add your OpenRouter key instead (or in addition):
+
+```
+OPENROUTER_API_KEY=sk-or-v1-...
+```
+
+Get one free at [openrouter.ai](https://openrouter.ai). No credit card required.
+
 ### 2. Open in Dev Container
 
 Open this folder in VS Code, then when prompted click **Reopen in Container** — or open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`) and run:
@@ -67,11 +75,14 @@ The LiteLLM dashboard is available at [http://localhost:4000](http://localhost:4
 
 | Model | Provider | Requires | Speed |
 |---|---|---|---|
-| `llama-4-scout` (default) | Groq | Free API key | Fast |
-| `llama-3.3-70b` | Groq | Free API key | Fast |
-| `ollama/qwen2.5-coder:1.5b` | Ollama | Nothing | Slow on CPU |
+| `llama-4-scout` (default) | Groq via LiteLLM | Free API key | Fast |
+| `llama-3.3-70b` | Groq via LiteLLM | Free API key | Fast |
+| `ollama/qwen2.5-coder:1.5b` | Ollama via LiteLLM | Nothing | Slow on CPU |
+| `nvidia/nemotron-3-super-120b-a12b:free` | OpenRouter | Free API key | Fast |
+| `openai/gpt-oss-120b:free` | OpenRouter | Free API key | Fast |
+| `minimax/minimax-m2.5:free` | OpenRouter | Free API key | Fast |
 | `github-copilot/gpt-4o` (see Copilot section) | GitHub Copilot | Copilot subscription | Fast |
-| `gpt-4o`, `claude-3-5-sonnet`, etc. | Various | Paid API key | Fast |
+| `gpt-4o`, `claude-3-5-sonnet`, etc. | Various via LiteLLM | Paid API key | Fast |
 
 ## OpenRouter (Free Models)
 
@@ -215,5 +226,5 @@ OpenCode sends a ~9,500-token system prompt with every message. On CPU-only Dock
   docker-compose.yml      # Defines devcontainer + litellm + ollama services
   litellm-config.yaml     # LiteLLM model definitions
 .env.example              # Copy to .env and add your API keys
-opencode.json             # OpenCode pre-configured for LiteLLM + MD2Card MCP
+opencode.json             # OpenCode pre-configured for LiteLLM, OpenRouter + MD2Card MCP
 ```
