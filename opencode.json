@@ -19,7 +19,7 @@
         "sonar-pro": { "name": "Sonar Pro (Perplexity)" },
         "grok-2": { "name": "Grok 2 (xAI)" },
         "deepseek-chat": { "name": "DeepSeek Chat" },
-        "ollama/llama3": { "name": "Llama 3 (Ollama/local)" }
+        "ollama/llama3.2": { "name": "Llama 3.2 (Ollama - no API key required)" }
       }
     }
   }
