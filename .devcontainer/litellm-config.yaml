@@ -44,7 +44,13 @@ model_list:
       model: cohere/command-r-plus
       api_key: os.environ/COHERE_API_KEY
 
-  # Groq
+  # Groq (free - https://console.groq.com)
+  - model_name: llama-4-scout
+    litellm_params:
+      model: groq/meta-llama/llama-4-scout-17b-16e-instruct
+      api_key: os.environ/GROQ_API_KEY
+      max_completion_tokens: 8192
+
   - model_name: llama-3.3-70b
     litellm_params:
       model: groq/llama-3.3-70b-versatile
@@ -75,10 +81,17 @@ model_list:
       api_key: os.environ/DEEPSEEK_API_KEY
 
   # Ollama (local - no API key required)
-  - model_name: ollama/llama3.2
+  - model_name: ollama/qwen2.5-coder:1.5b
     litellm_params:
-      model: ollama/llama3.2
+      model: ollama_chat/qwen2.5-coder:1.5b
       api_base: http://ollama:11434
+      num_ctx: 16384
+
+  - model_name: ollama/llama3.1:8b
+    litellm_params:
+      model: ollama_chat/llama3.1:8b
+      api_base: http://ollama:11434
+      num_ctx: 16384
 
 litellm_settings:
   drop_params: true

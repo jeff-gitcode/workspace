@@ -38,7 +38,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
-    entrypoint: ["/bin/sh", "-c", "ollama serve & until ollama list > /dev/null 2>&1; do sleep 1; done && ollama pull llama3.2 && wait"]
+    entrypoint: ["/bin/sh", "-c", "ollama serve & until ollama list > /dev/null 2>&1; do sleep 1; done && ollama pull qwen2.5-coder:1.5b && wait"]
 
 volumes:
   ollama-data:

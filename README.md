@@ -2,13 +2,13 @@
 
 A demo repository showing [OpenCode](https://opencode.ai) + [LiteLLM](https://docs.litellm.ai) running together in a dev container. Users get OpenCode pre-configured to proxy all major LLM providers through LiteLLM — with just a `.env` file.
 
-**No API key? No problem.** Ollama runs locally inside the container with `llama3.2` available out of the box.
+**Recommended: Get a free [Groq API key](https://console.groq.com)** (email only, no credit card) for fast responses out of the box. Ollama is available as a local fallback but is slow on CPU-only machines.
 
 ## What's Included
 
 - **OpenCode** — AI coding agent, auto-launches on container attach
-- **LiteLLM** — Proxies OpenAI, Anthropic, Gemini, Mistral, Groq, Cohere, Together AI, Perplexity, xAI, DeepSeek, AWS Bedrock, Azure OpenAI, and Ollama
-- **Ollama** — Runs `llama3.2` locally, no API key required
+- **LiteLLM** — Proxies OpenAI, Anthropic, Gemini, Mistral, Groq, Cohere, Together AI, Perplexity, xAI, DeepSeek, and Ollama
+- **Ollama** — Runs `qwen2.5-coder:1.5b` locally, no API key required
 - **LiteLLM Dashboard** — accessible at `http://localhost:4000` from your browser
 - VS Code extensions: GitHub Copilot, GitHub Copilot Chat, OpenCode
 
@@ -19,13 +19,21 @@ A demo repository showing [OpenCode](https://opencode.ai) + [LiteLLM](https://do
 
 ## Getting Started
 
-### 1. Add your API keys (optional)
+### 1. Copy the env file
 
 ```bash
 cp .env.example .env
 ```
 
-Open `.env` and fill in keys for any providers you have. If you have none, Ollama with `llama3.2` works out of the box — no keys needed.
+The file must exist (even if empty) or Docker Compose will fail to start.
+
+**For fast responses:** open `.env` and add your Groq key:
+
+```
+GROQ_API_KEY=gsk_...
+```
+
+Get one free at [console.groq.com](https://console.groq.com). Without a key, OpenCode falls back to Ollama — which works but is slow (~60–100s per response on CPU-only hardware).
 
 ### 2. Open in Dev Container
 
@@ -35,61 +43,54 @@ Open this folder in VS Code, then when prompted click **Reopen in Container** �
 Dev Containers: Reopen in Container
 ```
 
-The dev container, LiteLLM, and Ollama all start automatically. `llama3.2` is pulled on first start (this may take a few minutes). OpenCode launches when VS Code attaches.
+The dev container, LiteLLM, and Ollama all start automatically. `qwen2.5-coder:1.5b` is pulled on first start (~986 MB — this may take a few minutes). OpenCode launches when VS Code attaches.
 
 ### 3. Start coding
 
-OpenCode is pre-configured to use LiteLLM. Select any model from your configured providers — or pick **Llama 3.2 (Ollama)** for a fully local, free option.
+OpenCode defaults to **Llama 4 Scout via Groq** if `GROQ_API_KEY` is set, otherwise falls back to Ollama. Switch models anytime with the `/model` command.
 
 The LiteLLM dashboard is available at [http://localhost:4000](http://localhost:4000).
 
+## Models
+
+| Model | Provider | Requires | Speed |
+|---|---|---|---|
+| `llama-4-scout` (default) | Groq | Free API key | Fast |
+| `llama-3.3-70b` | Groq | Free API key | Fast |
+| `ollama/qwen2.5-coder:1.5b` | Ollama | Nothing | Slow on CPU |
+| `gpt-4o`, `claude-3-5-sonnet`, etc. | Various | Paid API key | Fast |
+
 ## Testing the Setup
-
-Before opening the dev container, make sure `.env` exists:
-
-```bash
-cp .env.example .env
-```
-
-You don't need to fill in any keys — Ollama works without them. But the file must exist or Docker Compose will fail to start.
-
-After the dev container is running and OpenCode has launched:
 
 ### 1. Verify LiteLLM is up
 
 In the container terminal:
 
 ```bash
-curl http://litellm:4000/health
+curl http://litellm:4000/health -H "Authorization: Bearer sk-litellm-demo"
 ```
 
 Expected: `{"status": "healthy"}`
 
-### 2. Verify Ollama pulled llama3.2
+### 2. Test in OpenCode
+
+Type `hi` — if Groq is configured you should get a response in under 2 seconds.
+
+### 3. Verify Ollama (optional)
 
 ```bash
 curl http://ollama:11434/api/tags
 ```
 
-Expected: JSON response listing `llama3.2`
+Expected: JSON listing `qwen2.5-coder:1.5b`.
 
-### 3. Test a model in OpenCode
-
-1. Press `/` and run `/model` to see available models
-2. Select `ollama/llama3.2`
-3. Type `say hello` — a response confirms Ollama is working
-
-### 4. Test a cloud provider (optional)
-
-1. Make sure your provider key is set in `.env` (e.g. `OPENAI_API_KEY`)
-2. Switch model to `gpt-4o-mini` via `/model`
-3. Send a prompt — a response confirms LiteLLM is proxying correctly
-
-### 5. Check the LiteLLM dashboard
+### 4. Check the LiteLLM dashboard
 
 Open [http://localhost:4000](http://localhost:4000) in your browser to see request logs.
 
-> **Note:** `llama3.2` is pulled on first container start and may take a few minutes. If OpenCode returns an error on that model right after startup, wait a moment and retry.
+## Why is Ollama slow?
+
+OpenCode sends a ~9,500-token system prompt with every message. On CPU-only Docker, Ollama processes ~100 tokens/second during the prefill phase — meaning ~95 seconds of silence before the first word appears. With a GPU it's 5–10x faster. Or just use Groq — it's free.
 
 ## Project Structure
 
@@ -98,10 +99,6 @@ Open [http://localhost:4000](http://localhost:4000) in your browser to see reque
   devcontainer.json       # Dev container configuration
   docker-compose.yml      # Defines devcontainer + litellm + ollama services
   litellm-config.yaml     # LiteLLM model definitions
-.env.example              # Copy to .env and add your API keys (optional)
+.env.example              # Copy to .env and add your API keys
 opencode.json             # OpenCode pre-configured for LiteLLM
-docs/
-  superpowers/
-    specs/                # Design documents
-    plans/                # Implementation plans
 ```

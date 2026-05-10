@@ -1,11 +1,20 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "model": "litellm/llama-4-scout",
+  "enabled_providers": ["litellm"],
   "provider": {
     "litellm": {
+      "npm": "@ai-sdk/openai-compatible",
       "name": "LiteLLM",
-      "baseURL": "http://litellm:4000",
-      "api_key": "sk-litellm-demo",
+      "options": {
+        "baseURL": "http://litellm:4000/v1",
+        "apiKey": "sk-litellm-demo"
+      },
       "models": {
+        "llama-4-scout": { "name": "Llama 4 Scout 17B (Groq - free, fast, requires API key)" },
+        "llama-3.3-70b": { "name": "Llama 3.3 70B (Groq - free, requires API key, 12K TPM limit)" },
+        "ollama/qwen2.5-coder:1.5b": { "name": "Qwen 2.5 Coder 1.5B (Ollama - local, no API key)" },
+        "ollama/llama3.1:8b": { "name": "Llama 3.1 8B (Ollama - free, no API key)" },
         "gpt-4o": { "name": "GPT-4o (OpenAI)" },
         "gpt-4o-mini": { "name": "GPT-4o Mini (OpenAI)" },
         "claude-3-5-sonnet": { "name": "Claude 3.5 Sonnet (Anthropic)" },
@@ -18,8 +27,7 @@
         "llama-3.1-405b": { "name": "Llama 3.1 405B (Together AI)" },
         "sonar-pro": { "name": "Sonar Pro (Perplexity)" },
         "grok-2": { "name": "Grok 2 (xAI)" },
-        "deepseek-chat": { "name": "DeepSeek Chat" },
-        "ollama/llama3.2": { "name": "Llama 3.2 (Ollama - no API key required)" }
+        "deepseek-chat": { "name": "DeepSeek Chat" }
       }
     }
   }
