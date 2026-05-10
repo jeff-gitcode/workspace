@@ -58,7 +58,28 @@ The LiteLLM dashboard is available at [http://localhost:4000](http://localhost:4
 | `llama-4-scout` (default) | Groq | Free API key | Fast |
 | `llama-3.3-70b` | Groq | Free API key | Fast |
 | `ollama/qwen2.5-coder:1.5b` | Ollama | Nothing | Slow on CPU |
+| `github-copilot/gpt-4o`, etc. | GitHub Copilot | Copilot subscription | Fast |
 | `gpt-4o`, `claude-3-5-sonnet`, etc. | Various | Paid API key | Fast |
+
+## GitHub Copilot
+
+GitHub Copilot is available as an additional provider if you have a Copilot subscription (paid, or free for [students and OSS maintainers](https://github.com/features/copilot/plans)).
+
+### Authenticate
+
+Run this once inside the container terminal:
+
+```bash
+opencode auth github-copilot
+```
+
+Follow the OAuth prompt in your browser. After authenticating, Copilot models appear in the `/model` picker inside OpenCode.
+
+### Available Models
+
+After authenticating, OpenCode shows the full list. Common options include `gpt-4o`, `claude-3.5-sonnet`, and `o3-mini`.
+
+The default model remains **Llama 4 Scout via Groq**. Switch to a Copilot model anytime with `/model`.
 
 ## Testing the Setup
 
