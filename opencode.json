@@ -2,6 +2,16 @@
   "$schema": "https://opencode.ai/config.json",
   "model": "litellm/llama-4-scout",
   "enabled_providers": ["litellm", "github-copilot"],
+  "mcp": {
+    "md2card": {
+      "type": "local",
+      "command": ["npx", "-y", "md2card-mcp-server@latest"],
+      "enabled": true,
+      "environment": {
+        "MD2CARD_API_KEY": "{env:MD2CARD_API_KEY}"
+      }
+    }
+  },
   "provider": {
     "litellm": {
       "npm": "@ai-sdk/openai-compatible",

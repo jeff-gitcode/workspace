@@ -2,6 +2,8 @@
 
 A demo repository showing [OpenCode](https://opencode.ai) + [LiteLLM](https://docs.litellm.ai) running together in a dev container. Users get OpenCode pre-configured to proxy all major LLM providers through LiteLLM — with just a `.env` file.
 
+![OpenCode + LiteLLM](doc/opencode-litellm.png)
+
 **Recommended: Get a free [Groq API key](https://console.groq.com)** (email only, no credit card) for fast responses out of the box. Ollama is available as a local fallback but is slow on CPU-only machines.
 
 ## What's Included
@@ -10,6 +12,7 @@ A demo repository showing [OpenCode](https://opencode.ai) + [LiteLLM](https://do
 - **LiteLLM** — Proxies OpenAI, Anthropic, Gemini, Mistral, Groq, Cohere, Together AI, Perplexity, xAI, DeepSeek, and Ollama
 - **Ollama** — Runs `qwen2.5-coder:1.5b` locally, no API key required
 - **LiteLLM Dashboard** — accessible at `http://localhost:4000` from your browser
+- **MD2Card MCP Server** — Convert Markdown to beautiful knowledge cards (optional)
 - VS Code extensions: GitHub Copilot, GitHub Copilot Chat, OpenCode
 
 ## Prerequisites
@@ -81,6 +84,39 @@ After authenticating, OpenCode shows the full list. Common options include `gith
 
 The default model remains **Llama 4 Scout via Groq**. Switch to a Copilot model anytime with `/model`.
 
+## MD2Card Integration
+
+MD2Card is an MCP (Model Context Protocol) server that allows you to convert Markdown documents into beautiful knowledge cards with 20+ themes.
+
+### Setup (Optional)
+
+1. Get a free API key from [md2card.cn](https://md2card.cn/zh/login)
+2. Add it to your `.env` file:
+
+```bash
+MD2CARD_API_KEY=your_api_key_here
+```
+
+3. Restart the dev container to load the MCP server
+
+### Usage
+
+Once configured, you can ask OpenCode to convert markdown to knowledge cards:
+
+```
+Convert this README to a knowledge card using md2card with the Apple Notes style
+```
+
+Or reference a specific file:
+
+```
+@docs/plans/2026-05-10-github-copilot-design.md Convert to a knowledge card using md2card
+```
+
+Available themes include: Apple Notes, Instagram, Pop Art, Minimalist, Cyberpunk, and many more. See [md2card.com](https://md2card.com/en) for the full list.
+
+**Note:** The MD2Card MCP server is optional. If you don't configure an API key, OpenCode will still work normally — you just won't have access to the card generation features.
+
 ## Testing the Setup
 
 ### 1. Verify LiteLLM is up
@@ -121,5 +157,5 @@ OpenCode sends a ~9,500-token system prompt with every message. On CPU-only Dock
   docker-compose.yml      # Defines devcontainer + litellm + ollama services
   litellm-config.yaml     # LiteLLM model definitions
 .env.example              # Copy to .env and add your API keys
-opencode.json             # OpenCode pre-configured for LiteLLM
+opencode.json             # OpenCode pre-configured for LiteLLM + MD2Card MCP
 ```
