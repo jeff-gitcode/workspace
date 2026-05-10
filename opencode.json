@@ -48,7 +48,10 @@
       },
       "models": {
         "google/gemma-4-31b-it:free": { "name": "Gemma 4 31B (Google - free)" },
-        "google/gemma-4-26b-a4b-it:free": { "name": "Gemma 4 26B A4B (Google - free)" }
+        "google/gemma-4-26b-a4b-it:free": { "name": "Gemma 4 26B A4B (Google - free)" },
+        "openai/gpt-oss-120b:free": { "name": "GPT-OSS 120B (OpenAI - free)" },
+        "nvidia/nemotron-3-super-120b-a12b:free": { "name": "Nemotron Super 120B (NVIDIA - free)" },
+        "minimax/minimax-m2.5:free": { "name": "MiniMax M2.5 (free)" }
       }
     }
   }

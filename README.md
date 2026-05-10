@@ -18,6 +18,7 @@ Are a new way to document and share knowledge. They distill complex information 
 
 - **OpenCode** — AI coding agent, auto-launches on container attach
 - **LiteLLM** — Proxies OpenAI, Anthropic, Gemini, Mistral, Groq, Cohere, Together AI, Perplexity, xAI, DeepSeek, and Ollama
+- **OpenRouter** — Direct provider with free models (no LiteLLM involved)
 - **Ollama** — Runs `qwen2.5-coder:1.5b` locally, no API key required
 - **LiteLLM Dashboard** — accessible at `http://localhost:4000` from your browser
 - **MD2Card MCP Server** — Convert Markdown to beautiful knowledge cards (optional)
@@ -71,6 +72,55 @@ The LiteLLM dashboard is available at [http://localhost:4000](http://localhost:4
 | `ollama/qwen2.5-coder:1.5b` | Ollama | Nothing | Slow on CPU |
 | `github-copilot/gpt-4o` (see Copilot section) | GitHub Copilot | Copilot subscription | Fast |
 | `gpt-4o`, `claude-3-5-sonnet`, etc. | Various | Paid API key | Fast |
+
+## OpenRouter (Free Models)
+
+OpenRouter is configured as a native provider, connecting directly to `https://openrouter.ai/api/v1` without going through LiteLLM.
+
+### Setup
+
+1. Get a free API key from [openrouter.ai](https://openrouter.ai)
+2. Add it to your `.env` file:
+
+```bash
+OPENROUTER_API_KEY=sk-or-v1-...
+```
+
+3. Restart the dev container to load the key
+
+### Switching to an OpenRouter Model
+
+In OpenCode, press the model picker (or type `/model`) and select **OpenRouter** as the provider. Choose any model from the list, then type a message to test it.
+
+To verify the key is loaded inside the container, run in the terminal:
+
+```bash
+echo $OPENROUTER_API_KEY
+```
+
+To test the API directly:
+
+```bash
+curl -s https://openrouter.ai/api/v1/chat/completions \
+  -H "Authorization: Bearer $OPENROUTER_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"nvidia/nemotron-3-super-120b-a12b:free","messages":[{"role":"user","content":"hi"}],"max_tokens":10}' \
+  | grep -o '"content":"[^"]*"'
+```
+
+Expected output: `"content":"Hi! How can I help you today?"`
+
+### Available Free Models
+
+| Model | Notes |
+|---|---|
+| `nvidia/nemotron-3-super-120b-a12b:free` | NVIDIA Nemotron Super 120B |
+| `openai/gpt-oss-120b:free` | OpenAI OSS 120B |
+| `minimax/minimax-m2.5:free` | MiniMax M2.5 |
+| `google/gemma-4-31b-it:free` | Google Gemma 4 31B |
+| `google/gemma-4-26b-a4b-it:free` | Google Gemma 4 26B A4B |
+
+> **Note:** Free models on OpenRouter share upstream rate limits across all users. If you get a "provider returned error" or rate limit error, switch to another free model or wait a minute and retry. For dedicated quotas, add your own provider API key at [openrouter.ai/settings/integrations](https://openrouter.ai/settings/integrations).
 
 ## GitHub Copilot
 
