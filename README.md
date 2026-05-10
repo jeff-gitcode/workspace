@@ -1,4 +1,4 @@
-# OpenCode + LiteLLM + OpenRouter Demo
+# OpenCode + LiteLLM + OpenRouter + Sandbox Demo
 
 A demo repository showing [OpenCode](https://opencode.ai) running in a dev container with two provider options: [LiteLLM](https://docs.litellm.ai) as a proxy for all major LLM providers, and [OpenRouter](https://openrouter.ai) as a native direct provider with free models — all configured with just a `.env` file.
 
