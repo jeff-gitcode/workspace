@@ -43,6 +43,46 @@ OpenCode is pre-configured to use LiteLLM. Select any model from your configured
 
 The LiteLLM dashboard is available at [http://localhost:4000](http://localhost:4000).
 
+## Testing the Setup
+
+After the dev container is running and OpenCode has launched:
+
+### 1. Verify LiteLLM is up
+
+In the container terminal:
+
+```bash
+curl http://litellm:4000/health
+```
+
+Expected: `{"status": "healthy"}`
+
+### 2. Verify Ollama pulled llama3.2
+
+```bash
+curl http://ollama:11434/api/tags
+```
+
+Expected: JSON response listing `llama3.2`
+
+### 3. Test a model in OpenCode
+
+1. Press `/` and run `/model` to see available models
+2. Select `ollama/llama3.2`
+3. Type `say hello` — a response confirms Ollama is working
+
+### 4. Test a cloud provider (optional)
+
+1. Make sure your provider key is set in `.env` (e.g. `OPENAI_API_KEY`)
+2. Switch model to `gpt-4o-mini` via `/model`
+3. Send a prompt — a response confirms LiteLLM is proxying correctly
+
+### 5. Check the LiteLLM dashboard
+
+Open [http://localhost:4000](http://localhost:4000) in your browser to see request logs.
+
+> **Note:** `llama3.2` is pulled on first container start and may take a few minutes. If OpenCode returns an error on that model right after startup, wait a moment and retry.
+
 ## Project Structure
 
 ```
