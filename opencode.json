@@ -1,0 +1,26 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "litellm": {
+      "name": "LiteLLM",
+      "baseURL": "http://litellm:4000",
+      "api_key": "sk-litellm-demo",
+      "models": {
+        "gpt-4o": { "name": "GPT-4o (OpenAI)" },
+        "gpt-4o-mini": { "name": "GPT-4o Mini (OpenAI)" },
+        "claude-3-5-sonnet": { "name": "Claude 3.5 Sonnet (Anthropic)" },
+        "claude-3-5-haiku": { "name": "Claude 3.5 Haiku (Anthropic)" },
+        "gemini-2.0-flash": { "name": "Gemini 2.0 Flash (Google)" },
+        "gemini-1.5-pro": { "name": "Gemini 1.5 Pro (Google)" },
+        "mistral-large": { "name": "Mistral Large" },
+        "command-r-plus": { "name": "Command R+ (Cohere)" },
+        "llama-3.3-70b": { "name": "Llama 3.3 70B (Groq)" },
+        "llama-3.1-405b": { "name": "Llama 3.1 405B (Together AI)" },
+        "sonar-pro": { "name": "Sonar Pro (Perplexity)" },
+        "grok-2": { "name": "Grok 2 (xAI)" },
+        "deepseek-chat": { "name": "DeepSeek Chat" },
+        "ollama/llama3": { "name": "Llama 3 (Ollama/local)" }
+      }
+    }
+  }
+}
