@@ -21,7 +21,8 @@ services:
       - ../.env
     command: ["--config", "/app/config.yaml", "--port", "4000", "--detailed_debug"]
     depends_on:
-      - ollama
+      ollama:
+        condition: service_healthy
     networks:
       - litellm-network
 
@@ -31,7 +32,13 @@ services:
       - ollama-data:/root/.ollama
     networks:
       - litellm-network
-    entrypoint: ["/bin/sh", "-c", "ollama serve & sleep 5 && ollama pull llama3.2 && wait"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    entrypoint: ["/bin/sh", "-c", "ollama serve & until curl -sf http://localhost:11434; do sleep 1; done && ollama pull llama3.2 && wait"]
 
 volumes:
   ollama-data:
