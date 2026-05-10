@@ -6,12 +6,7 @@ A demo repository showing [OpenCode](https://opencode.ai) running in a dev conta
 
 ![OpenCode + LiteLLM Demo](doc/opencode-litellm-demo.gif)
 
-## Knowledge Cards 
-
-Are a new way to document and share knowledge. They distill complex information into concise, visual formats that are easier to understand and remember. With the MD2Card MCP server included in this demo
-
-![OpenCode + LiteLLM](doc/opencode-litellm.png)
-
+## Key Features
 **Recommended: Get a free [Groq API key](https://console.groq.com)** (email only, no credit card) for fast responses out of the box. Ollama is available as a local fallback but is slow on CPU-only machines.
 
 ## What's Included
@@ -228,3 +223,9 @@ OpenCode sends a ~9,500-token system prompt with every message. On CPU-only Dock
 .env.example              # Copy to .env and add your API keys
 opencode.json             # OpenCode pre-configured for LiteLLM, OpenRouter + MD2Card MCP
 ```
+
+## Knowledge Cards 
+
+Are a new way to document and share knowledge. They distill complex information into concise, visual formats that are easier to understand and remember. With the MD2Card MCP server included in this demo
+
+![OpenCode + LiteLLM](doc/opencode-litellm.png)
