@@ -2,6 +2,7 @@
   "name": "litellm-demo",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
   "postCreateCommand": "npm install -g opencode-ai",
+  "postAttachCommand": "opencode",
   "remoteUser": "node",
   "customizations": {
     "vscode": {
