@@ -1,7 +1,7 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "model": "litellm/llama-4-scout",
-  "enabled_providers": ["litellm"],
+  "enabled_providers": ["litellm", "github-copilot"],
   "provider": {
     "litellm": {
       "npm": "@ai-sdk/openai-compatible",
@@ -23,7 +23,6 @@
         "gemini-1.5-pro": { "name": "Gemini 1.5 Pro (Google)" },
         "mistral-large": { "name": "Mistral Large" },
         "command-r-plus": { "name": "Command R+ (Cohere)" },
-        "llama-3.3-70b": { "name": "Llama 3.3 70B (Groq)" },
         "llama-3.1-405b": { "name": "Llama 3.1 405B (Together AI)" },
         "sonar-pro": { "name": "Sonar Pro (Perplexity)" },
         "grok-2": { "name": "Grok 2 (xAI)" },
