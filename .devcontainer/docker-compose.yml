@@ -20,8 +20,21 @@ services:
     env_file:
       - ../.env
     command: ["--config", "/app/config.yaml", "--port", "4000", "--detailed_debug"]
+    depends_on:
+      - ollama
     networks:
       - litellm-network
+
+  ollama:
+    image: ollama/ollama
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - litellm-network
+    entrypoint: ["/bin/sh", "-c", "ollama serve & sleep 5 && ollama pull llama3.2 && wait"]
+
+volumes:
+  ollama-data:
 
 networks:
   litellm-network:
