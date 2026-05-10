@@ -1,5 +1,5 @@
 {
-  "name": "litellm-demo",
+  "name": "opencode-litellm-demo",
   "dockerComposeFile": "docker-compose.yml",
   "service": "devcontainer",
   "workspaceFolder": "/workspace",
