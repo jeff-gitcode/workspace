@@ -1,0 +1,14 @@
+{
+  "name": "litellm-demo",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "postCreateCommand": "npm install -g opencode-ai",
+  "remoteUser": "node",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "github.copilot",
+        "github.copilot-chat"
+      ]
+    }
+  }
+}
