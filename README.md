@@ -2,6 +2,10 @@
 
 A demo repository showing [OpenCode](https://opencode.ai) + [LiteLLM](https://docs.litellm.ai) running together in a dev container. Users get OpenCode pre-configured to proxy all major LLM providers through LiteLLM — with just a `.env` file.
 
+## Demo Video
+
+![OpenCode + LiteLLM Demo](doc/opencode-litellm-demo.gif)
+
 ## Knowledge Cards 
 
 Are a new way to document and share knowledge. They distill complex information into concise, visual formats that are easier to understand and remember. With the MD2Card MCP server included in this demo
