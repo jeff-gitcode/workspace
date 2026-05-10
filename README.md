@@ -45,6 +45,14 @@ The LiteLLM dashboard is available at [http://localhost:4000](http://localhost:4
 
 ## Testing the Setup
 
+Before opening the dev container, make sure `.env` exists:
+
+```bash
+cp .env.example .env
+```
+
+You don't need to fill in any keys — Ollama works without them. But the file must exist or Docker Compose will fail to start.
+
 After the dev container is running and OpenCode has launched:
 
 ### 1. Verify LiteLLM is up
