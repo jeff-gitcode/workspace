@@ -34,11 +34,11 @@ services:
       - litellm-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:11434"]
+      test: ["CMD-SHELL", "ollama list || exit 1"]
       interval: 10s
       timeout: 5s
-      retries: 5
-    entrypoint: ["/bin/sh", "-c", "ollama serve & until curl -sf http://localhost:11434; do sleep 1; done && ollama pull llama3.2 && wait"]
+      retries: 10
+    entrypoint: ["/bin/sh", "-c", "ollama serve & until ollama list > /dev/null 2>&1; do sleep 1; done && ollama pull llama3.2 && wait"]
 
 volumes:
   ollama-data:
