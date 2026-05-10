@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  devcontainer:
+    image: mcr.microsoft.com/devcontainers/javascript-node:22
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    env_file:
+      - ../.env
+    networks:
+      - litellm-network
+
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./litellm-config.yaml:/app/config.yaml
+    env_file:
+      - ../.env
+    command: ["--config", "/app/config.yaml", "--port", "4000", "--detailed_debug"]
+    networks:
+      - litellm-network
+
+networks:
+  litellm-network:
+    driver: bridge
