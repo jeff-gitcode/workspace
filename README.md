@@ -11,7 +11,8 @@ This repo includes a `.devcontainer` configuration so any developer on Windows, 
 - Node.js 22 LTS
 - npm, git, zsh + oh-my-zsh
 - [OpenCode](https://opencode.ai) (installed globally via `opencode-ai`)
-- VS Code extensions: GitHub Copilot, GitHub Copilot Chat
+- VS Code extensions: GitHub Copilot, GitHub Copilot Chat, OpenCode (`sst-dev.opencode`)
+- OpenCode launches automatically when you attach to the container
 
 ## Getting Started
 
