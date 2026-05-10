@@ -1,6 +1,8 @@
 {
   "name": "litellm-demo",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspace",
   "postCreateCommand": "npm install -g opencode-ai",
   "postAttachCommand": "opencode",
   "remoteUser": "node",
